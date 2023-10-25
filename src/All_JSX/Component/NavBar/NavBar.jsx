@@ -26,8 +26,8 @@ const NavBar = () => {
     </>
 
     return (
-        <div className="navbar bg-base-100 font-semibold">
-            <div className="navbar-start">
+        <div className="navbar bg-base-100 sm:flex-row flex-col font-semibold">
+            <div className="sm:navbar-start w-full justify-between">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -46,7 +46,7 @@ const NavBar = () => {
                     {navItems}
                 </ul>
             </div>
-            <div className="navbar-end gap-4">
+            <div className="sm:navbar-end sm:gap-4 justify-between w-full sm:mt-0 mt-3">
                 <button className={`text-2xl ${theme === "dark" ? "text-white" : "text-gray-500"}`}>
                     <RiSearchLine></RiSearchLine>
                 </button>
@@ -54,7 +54,7 @@ const NavBar = () => {
                     <LiaShoppingBagSolid></LiaShoppingBagSolid>
                 </button>
                 <input type="checkbox" onClick={handleTheme} className="toggle toggle-error" />
-                <button className="font-semibold py-3 px-5 rounded-md outline text-[#FF3811] outline-[1.5px] duration-500 hover:bg-[#FF3811] hover:text-white outline-[#FF3811]">Appointment</button>
+                <button className="sm:font-semibold font-medium sm:text-base text-xs sm:py-3 sm:px-5 py-2 px-3 rounded-md outline text-[#FF3811] outline-[1.5px] duration-500 hover:bg-[#FF3811] hover:text-white outline-[#FF3811]">Appointment</button>
             </div>
         </div>
     );
