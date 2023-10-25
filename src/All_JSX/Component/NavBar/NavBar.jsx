@@ -18,15 +18,25 @@ const NavBar = () => {
     }
 
     const navItems = <>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/service">Services</NavLink></li>
-        <li><NavLink to="/blog">Blog</NavLink></li>
-        <li><NavLink to="/contact">Contact</NavLink></li>
+        <li><NavLink 
+        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+        to="/">Home</NavLink></li>
+        <li><NavLink
+        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+        to="/about">About</NavLink></li>
+        <li><NavLink 
+        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+        to="/service">Services</NavLink></li>
+        <li><NavLink 
+        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+        to="/blog">Blog</NavLink></li>
+        <li><NavLink 
+        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+        to="/contact">Contact</NavLink></li>
     </>
 
     return (
-        <div className="navbar bg-base-100 sm:flex-row flex-col font-semibold">
+        <div className="navbar bg-base-100 sm:flex-row flex-col font-semibold md:py-6">
             <div className="sm:navbar-start w-full justify-between">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">

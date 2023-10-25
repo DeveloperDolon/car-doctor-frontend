@@ -1,18 +1,14 @@
 
 import PropTypes from "prop-types";
-import NavBar from "../../Component/NavBar/NavBar";
-import { useContext } from "react";
-import { DataProvider } from "../../DataProvider/AuthProvider";
+import Banner from "../../Component/Banner/Banner";
 
 const Home = () => {
 
-    const {theme} = useContext(DataProvider);
-
     return (
-        <div className={theme === "dark" ? "text-white" : "text-black"}>
-            <div className="max-w-7xl mx-auto">
-                <NavBar></NavBar>
-            </div>
+        <div>
+           <div className="max-w-7xl mx-auto lg:px-0 md:px-5 px-3 md:mt-10 mt-5">
+            <Banner></Banner>
+           </div>
         </div>
     );
 };

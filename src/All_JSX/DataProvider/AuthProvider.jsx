@@ -1,12 +1,11 @@
 import { createContext, useState } from "react";
 import PropTypes from "prop-types";
-
 export const DataProvider = createContext();
 
 const AuthProvider = ({children}) => {
 
     const [theme, setTheme] = useState("light");
-
+    
     const authInfo = {
         theme, 
         setTheme
