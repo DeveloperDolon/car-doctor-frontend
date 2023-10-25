@@ -2,8 +2,14 @@
 import PropTypes from "prop-types";
 import Banner from "../../Component/Banner/Banner";
 import About from "../../Component/About/About";
+import Service from "../../Component/Service/Service";
+import {
+    useLoaderData,
+  } from "react-router-dom";
 
 const Home = () => {
+
+    const data = useLoaderData();
 
     return (
         <div>
@@ -11,6 +17,8 @@ const Home = () => {
             <Banner></Banner>
 
             <About></About>
+
+            <Service data={data}></Service>
            </div>
         </div>
     );

@@ -8,7 +8,7 @@ const AuthProvider = ({children}) => {
     
     const authInfo = {
         theme, 
-        setTheme
+        setTheme,
     };
 
     return (
