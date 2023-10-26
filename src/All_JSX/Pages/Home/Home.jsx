@@ -8,6 +8,7 @@ import {
   } from "react-router-dom";
 import ContactInfo from "../../Component/Contact-infos/Contact-info";
 import Products from "../../Component/Products/Products";
+import Team from "../../Component/Team/Team";
 
 const Home = () => {
 
@@ -25,6 +26,8 @@ const Home = () => {
             <ContactInfo></ContactInfo>
 
             <Products></Products>
+
+            <Team></Team>
            </div>
         </div>
     );
