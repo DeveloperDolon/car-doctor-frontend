@@ -6,6 +6,7 @@ import Service from "../../Component/Service/Service";
 import {
     useLoaderData,
   } from "react-router-dom";
+import ContactInfo from "../../Component/Contact-infos/Contact-info";
 
 const Home = () => {
 
@@ -19,6 +20,8 @@ const Home = () => {
             <About></About>
 
             <Service data={data}></Service>
+
+            <ContactInfo></ContactInfo>
            </div>
         </div>
     );

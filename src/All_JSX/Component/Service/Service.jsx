@@ -19,6 +19,9 @@ const Service = ({data}) => {
 
                 </ServiceItem>)}
             </div>
+            <div>
+                <button className="inline-block duration-200 bg-[#FF3811] mt-14 py-3 px-6 rounded-lg text-white font-semibold md:text-base text-sm hover:bg-white hover:outline outline-black hover:text-[#FF3811]">More Service</button>
+            </div>
         </div>
     );
 };
