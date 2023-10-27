@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { DataProvider } from "../DataProvider/AuthProvider";
 import { Outlet } from "react-router-dom";
 import NavBar from "../Component/NavBar/NavBar";
+import Footer from "../Component/Footer/Footer";
 
 const MainLayout = () => {
     const { theme } = useContext(DataProvider);
@@ -24,6 +25,8 @@ const MainLayout = () => {
                 </div>
             </div>
             <Outlet></Outlet>
+
+            <Footer></Footer>
         </div>
     );
 };
