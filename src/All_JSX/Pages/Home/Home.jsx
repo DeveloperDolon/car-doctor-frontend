@@ -3,18 +3,26 @@ import PropTypes from "prop-types";
 import Banner from "../../Component/Banner/Banner";
 import About from "../../Component/About/About";
 import Service from "../../Component/Service/Service";
-import {
-    useLoaderData,
-  } from "react-router-dom";
 import ContactInfo from "../../Component/Contact-infos/Contact-info";
 import Products from "../../Component/Products/Products";
 import Team from "../../Component/Team/Team";
 import Features from "../../Component/Features/Features";
 import Testimonial from "../../Component/Testmonial/Testmonial";
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
 
-    const data = useLoaderData();
+    const { isPending, error, data } = useQuery({
+        queryKey: ['services'],
+        queryFn: () =>
+          fetch('http://localhost:5000/services').then(
+            (res) => res.json(),
+          ),
+    });
+
+    if(isPending) return <div className="h-screen w-full flex justify-center items-center"><span className="loading loading-infinity h-32 w-32"></span></div>
+
+    if(error) return <span className="h-full w-full flex justify-center text-4xl">Error...</span>
 
     return (
         <div>

@@ -5,6 +5,7 @@ import {PiTwitterLogoDuotone, PiFacebookLogoDuotone} from "react-icons/pi";
 import {FaInstagramSquare} from "react-icons/fa";
 
 const Footer = () => {
+
     return (
        <div className="bg-black">
          <footer className="footer max-w-7xl lg:px-0 md:px-5 px-3 mx-auto md:py-32 py-20 text-white md:mt-40 mt-28">
@@ -14,9 +15,12 @@ const Footer = () => {
 
                 <div className="text-4xl flex gap-5 mt-6">
                     <FcGoogle className="cursor-pointer"></FcGoogle>
-                    <PiTwitterLogoDuotone className="cursor-pointer"></PiTwitterLogoDuotone>
-                    <FaInstagramSquare className="cursor-pointer"></FaInstagramSquare>
-                    <PiFacebookLogoDuotone className="cursor-pointer"></PiFacebookLogoDuotone>
+                    <PiTwitterLogoDuotone className="cursor-pointer">
+                    </PiTwitterLogoDuotone>
+                    <FaInstagramSquare className="cursor-pointer">
+                    </FaInstagramSquare>
+                    <PiFacebookLogoDuotone className="cursor-pointer">
+                    </PiFacebookLogoDuotone>
                 </div>
             </aside>
             <nav>
@@ -40,6 +44,7 @@ const Footer = () => {
                 <a className="link link-hover">Cookie policy</a>
             </nav>
         </footer>
+            <p className="text-white text-sm">&copy; Right Dolon Roy</p>
        </div>
     );
 };
