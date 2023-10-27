@@ -9,6 +9,8 @@ import {
 import ContactInfo from "../../Component/Contact-infos/Contact-info";
 import Products from "../../Component/Products/Products";
 import Team from "../../Component/Team/Team";
+import Features from "../../Component/Features/Features";
+import Testimonial from "../../Component/Testmonial/Testmonial";
 
 const Home = () => {
 
@@ -28,6 +30,10 @@ const Home = () => {
             <Products></Products>
 
             <Team></Team>
+
+            <Features></Features>
+
+            <Testimonial></Testimonial>
            </div>
         </div>
     );
