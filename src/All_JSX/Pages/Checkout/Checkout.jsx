@@ -1,13 +1,25 @@
 import { useLoaderData } from "react-router-dom";
 import checkOut from "../../../assets/images/checkout/checkout.png";
 import vector from "../../../assets/images/checkout/Vector.png";
+import { useContext } from "react";
+import { DataProvider } from "../../DataProvider/AuthProvider";
 const Checkout = () => {
 
     const data = useLoaderData();
-    console.log(data);
+    const {user} = useContext(DataProvider);
 
     const handleSubmit = (e) => {
-        alert("Submitted!")
+        e.preventDefault();
+
+        const service = e.target.service.value;
+        const email = e.target.email.value;
+        const date = e.target.date.value;
+        const price = e.target.price.value;
+        const message = e.target.message.value;
+
+        const info = {service, email, date, price, message}
+
+        console.log(info)
     }
 
     return (
@@ -36,10 +48,10 @@ const Checkout = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
-                        <input className="py-5 px-5 rounded-lg" defaultValue={data.title} placeholder="Service" type="text" />
-                        <input className="py-5 px-5 rounded-lg" defaultValue={data.email} placeholder="Email" type="text" />
-                        <input className="py-5 px-5 rounded-lg" placeholder="Date" type="date" />
-                        <input className="py-5 px-5 rounded-lg" defaultValue={data.price} placeholder="Price" type="text" />
+                        <input className="py-5 px-5 rounded-lg" name="service" value={data.title} placeholder="Service" type="text" />
+                        <input className="py-5 px-5 rounded-lg" name="email" value={user.email} placeholder="Email" type="text" />
+                        <input className="py-5 px-5 rounded-lg" name="date" required placeholder="Date" type="date" />
+                        <input className="py-5 px-5 rounded-lg" name="price" value={data.price} placeholder="Price" type="text" />
                     </div>
 
                     <textarea name="message" id="message" className="w-full mt-8 rounded-lg pt-5 px-5" cols="30" placeholder="Your Message" rows="10"></textarea>

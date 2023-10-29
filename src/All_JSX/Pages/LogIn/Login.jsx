@@ -1,9 +1,49 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../../assets/images/login/login.svg";
 import { FcGoogle } from 'react-icons/fc';
+import Swal from "sweetalert2";
+import { useContext } from "react";
+import { DataProvider } from "../../DataProvider/AuthProvider";
 
 const Login = () => {
+
+    const {signInWithEmailPassword} = useContext(DataProvider);
+    const navigate = useNavigate();
+    const handleLogIn = (e) => {
+        e.preventDefault();
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        if(password.length < 8) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password must be 8 characters!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+              return;
+        }
+
+        signInWithEmailPassword(email, password)
+        .then(() => {
+            Swal.fire(
+                'Good job!',
+                'Sign Up Compleat!',
+                'success'
+            )
+            navigate("/");
+        }).catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        });
+    }
+
     return (
         <div className="md:mt-20 mt-16 max-w-6xl mx-auto">
             <div className="hero-content grid md:grid-cols-2 grid-cols-1">
@@ -15,18 +55,18 @@ const Login = () => {
                     <h1 className="md:text-4xl text-2xl font-bold text-center pt-8">Login</h1>
 
                     <div>
-                        <form className="card-body">
+                        <form onSubmit={handleLogIn} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" placeholder="email" className="input input-bordered" required />
+                                <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" placeholder="password" className="input input-bordered" required />
+                                <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                                 <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>

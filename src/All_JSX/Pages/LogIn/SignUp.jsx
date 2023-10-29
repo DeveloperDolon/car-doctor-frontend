@@ -1,6 +1,6 @@
 
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../../../assets/images/login/login.svg";
 import { FcGoogle } from 'react-icons/fc';
 import { useContext } from "react";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const SignUp = () => {
 
     const {createUser} = useContext(DataProvider);
+    const navigate = useNavigate();
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -20,11 +21,21 @@ const SignUp = () => {
         const password = e.target.password.value;
         const photo = e.target.photo.value;
 
+        if(password.length < 8) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password must be 8 characters!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+              return;
+        }
+
         createUser(email, password)
         .then(res => {
 
             updateProfile(res.user, {
-                updateProfile: name, 
+                displayName: name, 
                 photoURL: photo
             }).then(() => {
                 Swal.fire(
@@ -32,6 +43,7 @@ const SignUp = () => {
                     'Sign Up Compleat!',
                     'success'
                 )
+                navigate("/");
                   
             }).catch(err => console.log(err));
         }).catch(err => console.log(err));
@@ -59,7 +71,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Photo Url</span>
                                 </label>
-                                <input name="photo" type="text" placeholder="Photo Url" className="input input-bordered" required />
+                                <input name="photo" type="text" placeholder="Photo Url" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">

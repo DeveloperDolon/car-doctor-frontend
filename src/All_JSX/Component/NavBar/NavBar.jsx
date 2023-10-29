@@ -1,16 +1,29 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataProvider } from "../../DataProvider/AuthProvider";
 import logo from "../../../assets/logo.svg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LiaShoppingBagSolid } from 'react-icons/lia';
 import { RiSearchLine } from 'react-icons/ri';
+import defaultImg from "../../../assets/user.png";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
 
-    const {theme, setTheme} = useContext(DataProvider);
+    const { theme, setTheme, user, logOut } = useContext(DataProvider);
+    const [visible, setVisible] = useState(false);
+
+    const handleLogOut = () => {
+        logOut().then(() => {
+            Swal.fire(
+                'Good job!',
+                'Sign Out Compleat!',
+                'success'
+            )
+        }).catch(err => console.log(err));
+    }
 
     const handleTheme = () => {
-        if(theme === "light") {
+        if (theme === "light") {
             setTheme("dark");
         } else {
             setTheme("light");
@@ -18,21 +31,21 @@ const NavBar = () => {
     }
 
     const navItems = <>
-        <li><NavLink 
-        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
-        to="/">Home</NavLink></li>
         <li><NavLink
-        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
-        to="/about">About</NavLink></li>
-        <li><NavLink 
-        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
-        to="/service">Services</NavLink></li>
-        <li><NavLink 
-        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
-        to="/blog">Blog</NavLink></li>
-        <li><NavLink 
-        className={({isActive, isPending}) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
-        to="/contact">Contact</NavLink></li>
+            className={({ isActive, isPending }) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+            to="/">Home</NavLink></li>
+        <li><NavLink
+            className={({ isActive, isPending }) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+            to="/about">About</NavLink></li>
+        <li><NavLink
+            className={({ isActive, isPending }) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+            to="/service">Services</NavLink></li>
+        <li><NavLink
+            className={({ isActive, isPending }) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+            to="/blog">Blog</NavLink></li>
+        <li><NavLink
+            className={({ isActive, isPending }) => isActive ? "bg-red-500 text-white" : isPending ? "bg-green-500 text-white" : ""}
+            to="/contact">Contact</NavLink></li>
     </>
 
     return (
@@ -56,7 +69,7 @@ const NavBar = () => {
                     {navItems}
                 </ul>
             </div>
-            <div className="sm:navbar-end sm:gap-4 justify-between w-full sm:mt-0 mt-3">
+            <div className="sm:navbar-end sm:gap-4 justify-between w-full sm:mt-0 mt-3 relative">
                 <button className={`text-2xl ${theme === "dark" ? "text-white" : "text-gray-500"}`}>
                     <RiSearchLine></RiSearchLine>
                 </button>
@@ -65,6 +78,18 @@ const NavBar = () => {
                 </button>
                 <input type="checkbox" onClick={handleTheme} className="toggle toggle-error" />
                 <button className="sm:font-semibold font-medium sm:text-base text-xs sm:py-3 sm:px-5 py-2 px-3 rounded-md outline text-[#FF3811] outline-[1.5px] duration-500 hover:bg-[#FF3811] hover:text-white outline-[#FF3811]">Appointment</button>
+                {
+                    user ? <><img onClick={() => setVisible(!visible)} className="md:w-12 rounded-full w-9 cursor-pointer" src={user?.photoURL ? user?.photoURL : defaultImg} alt="" />
+                        <div className={` absolute bg-[#89898952] rounded-lg duration-300 -bottom-20 ${visible ? "h-auto w-auto px-5 py-3" : "invisible p-0"} z-50`}>
+                            <h2>{user?.displayName}</h2>
+
+                            <button onClick={handleLogOut} className="btn-sm bg-[#FF3811] rounded-md">Log Out</button>
+                        </div>
+                    </> :
+                        <button className="btn">
+                            <Link to="/login">Lon In</Link>
+                        </button>
+                }
             </div>
         </div>
     );
