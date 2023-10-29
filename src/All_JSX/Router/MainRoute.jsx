@@ -9,6 +9,7 @@ import Checkout from "../Pages/Checkout/Checkout";
 import PrivateRoute from "../Component/PrivateRoute/PrivateRoute";
 import Login from "../Pages/LogIn/Login";
 import SignUp from "../Pages/LogIn/SignUp";
+import Cart from "../Pages/Cart/Cart";
 
 const MainRoute = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const MainRoute = createBrowserRouter([
             {
                 path: "/register",
                 element: <SignUp></SignUp>
+            },
+            {
+                path: "/cart",
+                element: <PrivateRoute><Cart/></PrivateRoute>
             }
         ]
     }

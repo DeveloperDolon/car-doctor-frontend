@@ -3,10 +3,14 @@ import checkOut from "../../../assets/images/checkout/checkout.png";
 import vector from "../../../assets/images/checkout/Vector.png";
 import { useContext } from "react";
 import { DataProvider } from "../../DataProvider/AuthProvider";
+import axios from "axios";
+import Swal from "sweetalert2";
 const Checkout = () => {
 
     const data = useLoaderData();
     const {user} = useContext(DataProvider);
+
+    console.log(data);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,9 +21,35 @@ const Checkout = () => {
         const price = e.target.price.value;
         const message = e.target.message.value;
 
-        const info = {service, email, date, price, message}
+        const info = {service_id : data._id, service, email, image: data.img, date, price, message}
 
-        console.log(info)
+        axios.post("http://localhost:5000/bookings", info)
+        .then((res) => {
+            
+            if(res.data.insertedId) {
+                Swal.fire(
+                    'Good job!',
+                    'Booking Completed!',
+                    'success'
+                )
+                return;
+            }
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Booking is not completed! Try again!",
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        }).catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+        });
+
     }
 
     return (

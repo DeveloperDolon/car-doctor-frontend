@@ -73,9 +73,13 @@ const NavBar = () => {
                 <button className={`text-2xl ${theme === "dark" ? "text-white" : "text-gray-500"}`}>
                     <RiSearchLine></RiSearchLine>
                 </button>
-                <button className={`text-2xl ${theme === "dark" ? "text-white" : "text-gray-500"}`}>
-                    <LiaShoppingBagSolid></LiaShoppingBagSolid>
-                </button>
+                <NavLink 
+                className={({ isActive, isPending }) => isActive ? "text-red-500" : isPending ? "bg-green-500 text-white" : ""}
+                to={`/cart`}>
+                    <button className={`text-2xl`}>
+                        <LiaShoppingBagSolid></LiaShoppingBagSolid>
+                    </button>
+                </NavLink>
                 <input type="checkbox" onClick={handleTheme} className="toggle toggle-error" />
                 <button className="sm:font-semibold font-medium sm:text-base text-xs sm:py-3 sm:px-5 py-2 px-3 rounded-md outline text-[#FF3811] outline-[1.5px] duration-500 hover:bg-[#FF3811] hover:text-white outline-[#FF3811]">Appointment</button>
                 {
