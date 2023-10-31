@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { DataProvider } from "../../DataProvider/AuthProvider";
 import { FaDeleteLeft } from 'react-icons/fa6';
 import Swal from "sweetalert2";
-import { space } from "postcss/lib/list";
 
 const Cart = () => {
     const { user } = useContext(DataProvider);
@@ -42,7 +41,7 @@ const Cart = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/bookings?email=${user?.email}&sort=1`)
+        axios.get(`http://localhost:5000/bookings?email=${user?.email}&sort=1`, {withCredentials: true})
             .then(res => setBookings(res.data))
             .catch(err => console.log(err))
     }, [user?.email]);
@@ -72,7 +71,7 @@ const Cart = () => {
                     <tr>
                         <th>Action</th>
                         <th>Image</th>
-                        <th>Name</th>
+                        <th>Details</th>
                         <th>Price</th>
                         <th>Status</th>
                     </tr>
@@ -87,8 +86,11 @@ const Cart = () => {
                             <td>
                                 <img className="md:w-32 w-20 rounded-lg" src={booking.image} alt="" />
                             </td>
-                            <td className="md:text-xl text-xs font-bold">{booking.service}</td>
-                            <td className="md:text-xl text-xs font-bold">{booking.price}</td>
+                            <td>
+                                <h2 className="md:text-xl text-xs font-bold">{booking.service}</h2>
+                                <p className="">Data: {booking.date}</p>
+                            </td>
+                            <td className="md:text-xl text-xs font-bold">${booking.price}</td>
                             <th>
                                 {
                                     booking?.status === "confirm" ? <span className="text-[#FF3811] font-semibold">Confirmed</span>

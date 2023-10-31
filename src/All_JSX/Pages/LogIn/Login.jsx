@@ -1,14 +1,16 @@
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../../assets/images/login/login.svg";
 import { FcGoogle } from 'react-icons/fc';
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import { DataProvider } from "../../DataProvider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
 
     const {signInWithEmailPassword} = useContext(DataProvider);
+    const location = useLocation();
     const navigate = useNavigate();
     const handleLogIn = (e) => {
         e.preventDefault();
@@ -22,10 +24,10 @@ const Login = () => {
                 title: 'Oops...',
                 text: 'Password must be 8 characters!',
                 footer: '<a href="">Why do I have this issue?</a>'
-              })
-              return;
+            })
+            return;
         }
-
+        
         signInWithEmailPassword(email, password)
         .then(() => {
             Swal.fire(
@@ -33,6 +35,17 @@ const Login = () => {
                 'Sign Up Compleat!',
                 'success'
             )
+            if(location.state) {
+                //get access totken
+                axios.post("http://localhost:5000/jwt", {email : email}, {withCredentials: true})
+                .then(result => {
+                    if(result.data.success ) {
+                        navigate(location?.state ? location.state : "/");
+                    }
+                })
+                .catch(err => console.log(err));
+                return;
+            }
             navigate("/");
         }).catch(err => {
             Swal.fire({

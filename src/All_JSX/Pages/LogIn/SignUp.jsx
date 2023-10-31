@@ -7,10 +7,11 @@ import { useContext } from "react";
 import { DataProvider } from "../../DataProvider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const SignUp = () => {
 
-    const {createUser} = useContext(DataProvider);
+    const { createUser } = useContext(DataProvider);
     const navigate = useNavigate();
 
     const handleRegister = (e) => {
@@ -21,39 +22,46 @@ const SignUp = () => {
         const password = e.target.password.value;
         const photo = e.target.photo.value;
 
-        if(password.length < 8) {
+        if (password.length < 8) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Password must be 8 characters!',
                 footer: '<a href="">Why do I have this issue?</a>'
-              })
-              return;
+            })
+            return;
         }
 
         createUser(email, password)
-        .then(res => {
+            .then(res => {
 
-            updateProfile(res.user, {
-                displayName: name, 
-                photoURL: photo
-            }).then(() => {
-                Swal.fire(
-                    'Good job!',
-                    'Sign Up Compleat!',
-                    'success'
-                )
-                navigate("/");
-                  
+                updateProfile(res.user, {
+                    displayName: name,
+                    photoURL: photo
+                }).then(() => {
+                    Swal.fire(
+                        'Good job!',
+                        'Sign Up Compleat!',
+                        'success'
+                    )
+                    //get access totken
+                    axios.post("http://localhost:5000/jwt", { email: email }, { withCredentials: true })
+                        .then(result => {
+                            if (result.data.success) {
+                                navigate(location?.state ? location.state : "/");
+                            }
+                        })
+                        .catch(err => console.log(err));
+
+                }).catch(err => console.log(err));
             }).catch(err => console.log(err));
-        }).catch(err => console.log(err));
     }
 
     return (
         <div className="md:mt-20 mt-16 max-w-6xl mx-auto">
             <div className="hero-content grid md:grid-cols-2 grid-cols-1">
                 <div className="text-center lg:text-left">
-                   <img src={loginImg} alt="" />
+                    <img src={loginImg} alt="" />
                 </div>
                 <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
 
